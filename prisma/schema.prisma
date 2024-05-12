@@ -20,7 +20,12 @@ model Task {
   id        Int     @id @default(autoincrement()) 
   title     String
   content   String?
-  status    String
+  status    Status @default(NEW)
   author    User?    @relation(fields: [authorId], references: [id])
   authorId  Int?
+}
+
+enum Status{
+  NEW 
+  COMPLETE
 }

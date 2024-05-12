@@ -1,3 +1,6 @@
+-- CreateEnum
+CREATE TYPE "Status" AS ENUM ('NEW', 'COMPLETE');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
@@ -13,7 +16,7 @@ CREATE TABLE "Task" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
     "content" TEXT,
-    "status" TEXT NOT NULL,
+    "status" "Status" NOT NULL DEFAULT 'NEW',
     "authorId" INTEGER,
 
     CONSTRAINT "Task_pkey" PRIMARY KEY ("id")
