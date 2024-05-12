@@ -21,8 +21,10 @@ model Task {
   title     String
   content   String?
   status    Status @default(NEW)
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  Int?
+  author    User    @relation(fields: [authorId], references: [id])
+  authorId  Int
+  media     String?
+
 }
 
 enum Status{

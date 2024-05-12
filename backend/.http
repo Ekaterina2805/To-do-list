@@ -1,0 +1,54 @@
+POST http://localhost:3000/user
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTcxNTQ3NjE3MiwiZXhwIjoxNzE1NDc2NDcyfQ.aQ4mc41VH0ujnyJtVviV9mPtZqHYZeOE3JP6izztrnc
+
+{
+    "email": "some3mail2",
+    "password": "password",
+    "name": "name"
+}
+
+
+####
+POST http://localhost:3000/auth/login
+content-type: application/json
+
+{
+    "email": "some3mail2",
+    "password": "password"
+}
+
+####
+POST http://localhost:3000/task
+content-type: application/json
+
+{
+
+     "title": "string",
+  
+     "content": "string",
+  
+  
+     "authorId": 1 
+  
+}
+
+
+####
+PUT  http://localhost:3000/task
+content-type: application/json
+
+{
+    "id": 1,
+  "title": "streinig",
+  "content": "strirfdng",
+  "status": "NEW",
+  "authorId": 1
+  
+
+}
+###
+GET   http://localhost:3000/task/COMPLETE
+
+###
+GET   http://localhost:3000/task/all/1

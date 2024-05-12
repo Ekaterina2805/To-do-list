@@ -17,7 +17,8 @@ CREATE TABLE "Task" (
     "title" TEXT NOT NULL,
     "content" TEXT,
     "status" "Status" NOT NULL DEFAULT 'NEW',
-    "authorId" INTEGER,
+    "authorId" INTEGER NOT NULL,
+    "media" TEXT,
 
     CONSTRAINT "Task_pkey" PRIMARY KEY ("id")
 );
@@ -26,4 +27,4 @@ CREATE TABLE "Task" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- AddForeignKey
-ALTER TABLE "Task" ADD CONSTRAINT "Task_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Task" ADD CONSTRAINT "Task_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

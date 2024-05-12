@@ -1,18 +1,31 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/Prisma/prisma.service';
-import { CreateTaskDto } from './dto/create.dto';
-import { UpdateTaskDto } from './dto/update.dto';
 import { $Enums, Prisma, Task } from '@prisma/client';
+import { MediaUploadService } from './media.upload.service';
 
 
 
 @Injectable()
 export class TaskService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService, 
+    private mediaUploadService: MediaUploadService,
 
-  async create(createTaskDto: CreateTaskDto) {
+  ) {}
+  
+  async create(data: Prisma.TaskCreateInput) {
     return await this.prisma.task.create({
-      data: createTaskDto,
+      data,
+    });
+  }
+
+  async createWithMedia(data: Prisma.TaskCreateInput, file: Express.Multer.File): Promise<Task> {
+    const mediaPath = await this.mediaUploadService.uploadMedia(file);
+    return this.prisma.task.create({
+      data: {
+        ...data,
+        media: mediaPath,
+      },
     });
   }
 
@@ -36,11 +49,11 @@ export class TaskService {
     return this.prisma.task.findUnique({ where: { id } });
   }
 
-  async updateOne(updateTaskDto: UpdateTaskDto){
-    ;
+  async updateOne(data: Prisma.TaskUncheckedUpdateInput){
+    
     return await this.prisma.task.update({
-      where: { id : updateTaskDto.id},
-      data: updateTaskDto,
+      where: { id : Number(data.id)},
+      data
     });
   }
 
