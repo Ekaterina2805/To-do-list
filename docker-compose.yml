@@ -1,0 +1,20 @@
+version: '3.1'
+
+services:
+  db1:
+    image: postgres:12.4
+    environment:
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - db1_data:/var/lib/postgresql/data
+    networks:
+      - postgres_network
+
+networks:
+  postgres_network:
+    driver: bridge
+
+volumes:
+  db1_data:
