@@ -14,9 +14,13 @@ export class TaskService {
   ) {}
   
   async create(data: Prisma.TaskCreateInput) {
-    return await this.prisma.task.create({
-      data,
-    });
+    try{
+      return await this.prisma.task.create({
+        data
+      });
+    }catch (e) {
+      console.log(data)
+    }
   }
 
   async createWithMedia(data: Prisma.TaskCreateInput, file: Express.Multer.File): Promise<Task> {
@@ -33,14 +37,14 @@ export class TaskService {
     return this.prisma.task.findMany({ where : {authorId: +authorId}});
   }
 
-  async filterByEnum(status: $Enums.Status) {
-    if(!$Enums.Status[status]){
-      throw new NotFoundException('Invalid status value provided')
-    }
+  async filterByEnum(authorId: number, status?: $Enums.Status) {
+
     return await this.prisma.task.findMany({
-      where: {
+      where: status ? {
+        authorId,
         status: status,
-      },
+      } : {
+        authorId},
     })
 
   }

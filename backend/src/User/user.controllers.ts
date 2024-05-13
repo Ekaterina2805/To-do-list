@@ -11,20 +11,20 @@ export class UserController{
     @Post()
     // @UseGuards(JwtAuthGuard)
     async createUser(@Body() data: Prisma.UserCreateInput):Promise<User>{
-        return this.userService.create(data)
+        return await this.userService.create(data)
     }
 
     @Put(':id')
     @UseGuards(JwtAuthGuard)
     async updateUser(@Param('id') id: number, @Body() data: Prisma.UserUpdateInput):Promise<User>{
-        return this.userService.update(id, data)
+        return await this.userService.update(id, data)
     }
 
 
     @Delete(':id')
     @UseGuards(JwtAuthGuard)
     async deleteUser(@Param('id') id: number){
-        return this.userService.remove(id)
+        return await this.userService.remove(id)
     }
 
 }
